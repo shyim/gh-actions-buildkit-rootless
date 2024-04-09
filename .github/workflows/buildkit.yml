@@ -9,7 +9,7 @@ jobs:
   commitlint:
     runs-on: ubuntu-latest
     container:
-      image: moby/buildkit:rootless
+      image: ghcr.io/shyim/buildkit:4
       options: --security-opt seccomp=unconfined --security-opt apparmor=unconfined
     steps:
       - run: |
