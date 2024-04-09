@@ -9,7 +9,7 @@ jobs:
   commitlint:
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/shyim/buildkit:4
+      image: ghcr.io/shyim/buildkit:5
       options: --security-opt seccomp=unconfined --security-opt apparmor=unconfined
     steps:
       - run: |
