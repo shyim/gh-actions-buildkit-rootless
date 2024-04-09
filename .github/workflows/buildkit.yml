@@ -12,7 +12,7 @@ jobs:
       image: alpine
     services:
       buildkitd:
-        image: ghcr.io/shyim/buildkit:1
+        image: ghcr.io/shyim/buildkit
         options: --security-opt seccomp=unconfined --security-opt apparmor=unconfined
         ports:
           - 1234:1234
