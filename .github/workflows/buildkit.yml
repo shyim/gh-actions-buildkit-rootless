@@ -9,18 +9,14 @@ jobs:
   commitlint:
     runs-on: ubuntu-latest
     container:
-      image: alpine
-    services:
-      buildkitd:
-        image: ghcr.io/shyim/buildkit
-        options: --security-opt seccomp=unconfined --security-opt apparmor=unconfined
-        ports:
-          - 1234:1234
+      image: moby/buildkit:rootless
+      options: --security-opt seccomp=unconfined --security-opt apparmor=unconfined
     steps:
-      - run: apk add --no-cache buildctl
       - run: |
           cat <<EOF >> Dockerfile
           FROM debian
           RUN apt-get update && apt-get install -y git
           EOF
-      - run: buildctl --addr tcp://localhost:1234 build --frontend dockerfile.v0 --local context=. --local dockerfile=. --output type=local,dest=/tmp/.test .
+        working-directory: /tmp
+      - run: buildctl-daemonless.sh build --frontend dockerfile.v0 --local context=. --local dockerfile=. --output type=local,dest=/tmp/.test .
+        working-directory: /tmp
